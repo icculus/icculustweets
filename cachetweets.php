@@ -158,7 +158,7 @@ foreach ($data as $tweet)
     $tweet->html = <<<EOS
 <div style="padding-bottom:25px;padding-left:50px;padding-right:50px;padding-top:5px;">
   <table><tr>
-    <td><img src='{$tweet->user->profile_image_url}'/></td>
+    <td><img style="width:48px; height:48px;" src='{$tweet->user->profile_image_url}'/></td>
     <td>
       <span style="font-family:'Helvetica Neue', Arial, sans-serif;font-size:18px;font-weight:bold;color:#333;text-decoration:none;display:block;">
         {$tweet->user->name}

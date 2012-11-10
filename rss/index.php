@@ -1,5 +1,7 @@
 <?php
 
+require_once('../config.php');
+
 $cachedir = '../cache';
 $maxtweets = 99999;
 

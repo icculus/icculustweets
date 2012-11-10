@@ -10,7 +10,7 @@ if (!file_exists($cachedir))
 $cachefnames = scandir($cachedir);
 rsort($cachefnames, SORT_NUMERIC);
 
-$reprocess_existing = true;
+$reprocess_existing = false;
 $getfromargv = false;
 
 $connection = undef;

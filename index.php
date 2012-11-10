@@ -29,7 +29,7 @@ if ($cachefnames !== false)
 }
 
 $uname = TWITTER_USERNAME;
-$baseurl = "http://twitter.icculus.org/$uname";
+$baseurl = "https://twitter.icculus.org/$uname";
 
 header('Content-Type: text/html; charset=UTF-8');
 print("<html><head>");

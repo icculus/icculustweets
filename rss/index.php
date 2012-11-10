@@ -23,7 +23,7 @@ rsort($cachefnames, SORT_NUMERIC);
 
 if ($cachefnames !== false)
 {
-    if ($maxtweets > count($cachefnames))
+    if (($maxtweets <= 0) || ($maxtweets > count($cachefnames)))
         $maxtweets = count($cachefnames);
 
     for ($i = 0; $i < $maxtweets; $i++)

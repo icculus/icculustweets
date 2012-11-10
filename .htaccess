@@ -1,0 +1,41 @@
+<Files .htaccess>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files .hg>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files .hgignore>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files cache>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files *.txt>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files .twitteroauth>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files *.php>
+Order deny,allow
+Deny from all
+</Files>
+
+<Files index.php>
+Order allow,deny
+Allow from all
+</Files>
+
+

@@ -35,17 +35,19 @@ if ($cachefnames !== false)
 
 header('Content-Type: text/xml; charset=UTF-8');
 
+$uname = TWITTER_USERNAME;
+
 print( <<<EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
-  <title>Twitter / icculus</title>
-  <link>https://twitter.com/icculus</link>
-  <tagline>Tweets from @icculus</tagline>
+  <title>Twitter / $uname</title>
+  <link>https://twitter.com/$uname</link>
+  <tagline>Tweets from @$uname</tagline>
   <image>
     <url>https://twitter.com/images/resources/twitter-bird-light-bgs.png</url>
-    <title>Twitter / icculus</title>
-    <link>https://twitter.com/icculus</link>
+    <title>Twitter / $uname</title>
+    <link>https://twitter.com/$uname</link>
   </image>
 
 EOS
@@ -62,7 +64,7 @@ foreach($data as $tweet)
 
     print( <<<EOS
   <item>
-    <guid>tag:icculus.org/TwitterIcculusRssBridge/icculus/status/$origid</guid>
+    <guid>tag:twitter.icculus.org/$uname/status/$origid</guid>
     <title>$text</title>
     <link>{$tweet->embed->url}</link>
     <summary>$text</summary>

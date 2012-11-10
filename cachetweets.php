@@ -60,7 +60,7 @@ else
     /* If method is set change API call made. Test is called by default. */
     $content = $connection->get('account/verify_credentials');
 
-    $data = $connection->get('statuses/user_timeline', array('screen_name' => 'icculus', 'count' => '2000', 'include_entities' => 'true', 'include_rts' => 'true', 'since_id' => $maxtweet));
+    $data = $connection->get('statuses/user_timeline', array('screen_name' => TWITTER_USERNAME, 'count' => '2000', 'include_entities' => 'true', 'include_rts' => 'true', 'since_id' => $maxtweet));
 }
 
 
@@ -79,7 +79,7 @@ foreach ($data as $tweet)
         }
     }
 
-    //if ($tweet->user->screen_name != "icculus") { print ("tweet $id is probably a retweet: '{$tweet->text}'\n"); continue; }
+    //if ($tweet->user->screen_name != TWITTER_USERNAME) { print ("tweet $id is probably a retweet: '{$tweet->text}'\n"); continue; }
 
     $id = $tweet->id_str;
     $cachefname = "$cachedir/$id";

@@ -20,10 +20,13 @@ if ($cachefnames !== false)
     }
 }
 
+$uname = TWITTER_USERNAME;
+$baseurl = "http://twitter.icculus.org/$uname";
+
 header('Content-Type: text/html; charset=UTF-8');
 print("<html><head>");
-print("<link rel='alternate' type='application/rss+xml' title='Twitter / icculus' href='http://icculus.org/~icculus/tweets/rss.php' />");
-print("<title>Twitter / icculus</title></head><body>\n");
+print("<link rel='alternate' type='application/rss+xml' title='Twitter / $uname' href='$baseurl/rss/' />");
+print("<title>Twitter / $uname</title></head><body>\n");
 
 foreach ($data as $tweet)
 {
@@ -32,11 +35,7 @@ foreach ($data as $tweet)
     print($tweet->html);
 }
 
-if (0)
-{
-    print("<pre>\n\n\n\n");
-    print_r($data);
-}
-
 print("\n</body></html>\n\n");
+
+?>
 

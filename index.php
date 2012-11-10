@@ -5,18 +5,26 @@ session_start();
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
-$data = array();
+$maxtweets = 20;
 $cachedir = './cache';
+
+$data = array();
 $cachefnames = scandir($cachedir);
 rsort($cachefnames, SORT_NUMERIC);
 
+$count = 0;
 if ($cachefnames !== false)
 {
     foreach ($cachefnames as $fname)
     {
         $obj = unserialize(file_get_contents("$cachedir/$fname"));
         if ($obj !== false)
+        {
             $data[] = $obj;
+            $count++;
+            if (($maxtweets > 0) && ($count >= $maxtweets))
+                break;
+        }
     }
 }
 

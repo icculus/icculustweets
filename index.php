@@ -36,6 +36,8 @@ print("<html><head>");
 print("<link rel='alternate' type='application/rss+xml' title='Twitter / $uname' href='$baseurl/rss/' />");
 print("<title>Twitter / $uname</title></head><body>\n");
 
+print("<p><h1>Latest tweets from <a href='https://twitter.com/$uname/'>$uname</a> ...</h1></p>\n");
+
 foreach ($data as $tweet)
 {
     if (isset($tweet->retweeted_status))

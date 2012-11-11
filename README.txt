@@ -43,6 +43,19 @@ to "AllowOverride Limit" so that the .htaccess file works as expected.
 You may need to sniff around for hardcoded things. Grep for 'icculus' to
 fix a hardcoded URL or two. Send patches.
 
+If you want to archive your tweets to a Maildir, so they can live in a
+mail folder, you can run this:
+
+php ./archive_tweets.php YOUREMAILADDRESS /location/of/the/Maildir/folder --all
+
+YOUREMAILADDRESS becomes the to/from field in the email, but we write these
+files directly to disk without emailing them. In my case, I use something like
+this in a cronjob (it's smart enough to archive a given tweet only once).
+
+php ./archive_tweets.php icculus@icculus.org ~/Maildir/.tweets --all
+
+
+
 Questions: ask me.
 
 --ryan.

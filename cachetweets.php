@@ -174,6 +174,7 @@ foreach ($data as $tweet)
     $created_at = $datetime->format('j M y');
     $tweet->rss_created_at = $datetime->format(DateTime::RSS);
     $tweet->email_created_at = $datetime->format(DateTime::RFC2822);
+    $tweet->epoch_created_at = $datetime->format('U');
     $tweet->status_url = "https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}";
 
     if (!isset($tweet->origtext))

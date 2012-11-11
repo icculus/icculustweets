@@ -93,6 +93,11 @@ foreach ($cachefnames as $cachefname)
     $realname = $tweet->user->name;
     $screenname = $tweet->user->screen_name;
 
+    $subject = str_replace("\r\n", "\n", $text);
+    $subject = str_replace("\r", "\n", $subject);
+    $subject = str_replace("\n", ' ', $subject);
+    $subject = "@$screenname: $subject";
+
     if ($isarchived[$id])
     {
         //print("Already archived $cachefname\n");
@@ -116,7 +121,7 @@ X-Mailer: archive_tweets.php $VERSION
 From: $to
 To: $to
 Date: $emaildate
-Subject: @$screenname: $text
+Subject: $subject
 
 This is a multipart message in MIME format.
 

@@ -76,7 +76,7 @@ foreach($data as $tweet)
   <item>
     <guid>tag:twitter.icculus.org/$uname/status/$origid</guid>
     <title>$text</title>
-    <link>https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}</link>
+    <link>{$tweet->status_url}</link>
     <summary>$text</summary>
     <description>$embedhtml</description>
     <pubDate>{$tweet->rss_created_at}</pubDate>

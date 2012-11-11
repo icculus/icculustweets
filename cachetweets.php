@@ -173,6 +173,8 @@ foreach ($data as $tweet)
     $datetime = new DateTime($tweet->created_at);  //('D M d H:i:s T Y', $tweet->created_at);
     $created_at = $datetime->format('j M y');
     $tweet->rss_created_at = $datetime->format(DateTime::RSS);
+    $tweet->email_created_at = $datetime->format(DateTime::RFC2822);
+    $tweet->status_url = "https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}";
 
     if (!isset($tweet->origtext))
         $tweet->origtext = $tweet->text;
@@ -194,7 +196,7 @@ foreach ($data as $tweet)
   <span style="padding-top:5px;padding-bottom:5px;width:438px;line-height: 28px;font-family:Georgia, 'Times New Roman', serif;font-size:22px;color:#333;display:block;">$html</span>
   $mediahtml
   <span style="font-family:'Helvetica Neue', Arial, sans-serif;font-size:12px;color:#999;display:block;">
-    Tweeted <a href="https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}">$created_at</a> $in_reply_to via {$tweet->source}
+    Tweeted <a href="{$tweet->status_url}">$created_at</a> $in_reply_to via {$tweet->source}
   </span>
 </div>
 

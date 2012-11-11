@@ -97,7 +97,7 @@ foreach ($data as $tweet)
 
     unset($in_reply_to_name);
     $mediahtml = '';
-    $text = $tweet->origtext;
+    $text = isset($tweet->origtext) ? $tweet->origtext : $tweet->text;
     $html = $text;
     if (isset($tweet->entities))
     {

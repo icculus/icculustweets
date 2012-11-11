@@ -8,7 +8,12 @@ if (!file_exists($cachedir))
     mkdir($cachedir);
 
 $cachefnames = scandir($cachedir);
-rsort($cachefnames, SORT_NUMERIC);
+while (($cachefnames[0] == '.') || ($cachefnames[0] == '..'))
+    array_shift($cachefnames);
+if (count($cachefnames) == 0)
+    $cachefnames = false;
+else
+    rsort($cachefnames, SORT_NUMERIC);
 
 $reprocess_existing = false;
 $getfromargv = false;
@@ -61,6 +66,13 @@ else
     $content = $connection->get('account/verify_credentials');
 
     $data = $connection->get('statuses/user_timeline', array('screen_name' => TWITTER_USERNAME, 'count' => '2000', 'include_entities' => 'true', 'include_rts' => 'true', 'since_id' => $maxtweet));
+    if (isset($data->errors))
+    {
+        print("get timeline failed:\n");
+        foreach ($data->errors as $err)
+            print("  - {$err->message}\n");
+        exit(1);
+    }
 }
 
 

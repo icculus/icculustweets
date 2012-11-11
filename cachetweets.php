@@ -212,3 +212,8 @@ EOS;
     print("cached tweet $id\n");
 }
 
+exit(0);
+
+?>
+
+

@@ -18,24 +18,17 @@ Order deny,allow
 Deny from all
 </Files>
 
-<Files *.txt>
+<Files twitteroauth>
 Order deny,allow
 Deny from all
 </Files>
 
-<Files .twitteroauth>
+<FilesMatch "\.php$">
 Order deny,allow
 Deny from all
-</Files>
-
-<Files *.php>
-Order deny,allow
-Deny from all
-</Files>
+</FilesMatch>
 
 <Files index.php>
 Order allow,deny
 Allow from all
 </Files>
-
-

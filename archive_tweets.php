@@ -111,6 +111,10 @@ foreach ($cachefnames as $cachefname)
         $hash_addon++;
     } while ((strstr($text, $mimeboundary)) || (strstr($html, $mimeboundary)));
 
+    $detailline = "Tweeted {$tweet->simple_created_at}";
+    if (isset($tweet->in_reply_to_name_proper))
+        $detailline = "$detailline in reply to {$tweet->in_reply_to_name_proper}";
+
     $output = <<<EOS
 Return-Path: <$to>
 Delivered-To: $to
@@ -135,6 +139,7 @@ Content-Transfer-Encoding: binary
 $text
 
 $realname (@$screenname)
+$detailline
 $statusurl
 
 

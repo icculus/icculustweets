@@ -175,7 +175,10 @@ foreach ($data as $tweet)
     $tweet->rss_created_at = $datetime->format(DateTime::RSS);
     $tweet->email_created_at = $datetime->format(DateTime::RFC2822);
     $tweet->epoch_created_at = $datetime->format('U');
+    $tweet->simple_created_at = $created_at;
     $tweet->status_url = "https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}";
+    if ($in_reply_to_name)
+        $tweet->in_reply_to_name_proper = $in_reply_to_name;
 
     if (!isset($tweet->origtext))
         $tweet->origtext = $tweet->text;

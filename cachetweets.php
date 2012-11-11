@@ -8,12 +8,15 @@ if (!file_exists($cachedir))
     mkdir($cachedir);
 
 $cachefnames = scandir($cachedir);
-while (($cachefnames[0] == '.') || ($cachefnames[0] == '..'))
-    array_shift($cachefnames);
-if (count($cachefnames) == 0)
-    $cachefnames = false;
-else
-    rsort($cachefnames, SORT_NUMERIC);
+if ($cachefnames !== false)
+{
+    while (($cachefnames[0] == '.') || ($cachefnames[0] == '..'))
+        array_shift($cachefnames);
+    if (count($cachefnames) == 0)
+        $cachefnames = false;
+    else
+        rsort($cachefnames, SORT_NUMERIC);
+}
 
 $reprocess_existing = false;
 $getfromargv = false;

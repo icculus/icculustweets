@@ -19,7 +19,15 @@ function xml_entities($str)
 $data = array();
 
 $cachefnames = scandir($cachedir);
-rsort($cachefnames, SORT_NUMERIC);
+if ($cachefnames !== false)
+{
+    while (($cachefnames[0] == '.') || ($cachefnames[0] == '..'))
+        array_shift($cachefnames);
+    if (count($cachefnames) == 0)
+        $cachefnames = false;
+    else
+        rsort($cachefnames, SORT_NUMERIC);
+}
 
 if ($cachefnames !== false)
 {

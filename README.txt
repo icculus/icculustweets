@@ -37,6 +37,9 @@ Make sure this directory is somewhere on your web server, and point your
 browser at index.php. See your tweets? You're good to go. Point the web 
 browser at rss/index.php to get an RSS feed.
 
+You probably want to put this on the webserver with the directory set
+to "AllowOverride Limit" so that the .htaccess file works as expected.
+
 You may need to sniff around for hardcoded things. Grep for 'icculus' to
 fix a hardcoded URL or two. Send patches.
 

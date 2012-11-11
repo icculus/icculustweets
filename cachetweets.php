@@ -21,6 +21,14 @@ if ($cachefnames !== false)
 $reprocess_existing = false;
 $getfromargv = false;
 
+$skiparg = true;
+foreach ($argv as $arg)
+{
+    if ($skiparg) { $skiparg = false; continue; }  // skip argv[0]
+    if ($arg == "--reprocess")
+        $reprocess_existing = true;
+}
+
 $connection = undef;
 $statuses = undef;
 $data = undef;

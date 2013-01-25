@@ -153,8 +153,6 @@ Content-Transfer-Encoding: binary
 $html
 
 
---$mimeboundary
-
 EOS
     ;
 

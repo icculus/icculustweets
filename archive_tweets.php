@@ -98,7 +98,7 @@ foreach ($cachefnames as $cachefname)
     $subject = str_replace("\n", ' ', $subject);
     $subject = "@$screenname: $subject";
 
-    if ($isarchived[$id])
+    if (isset($isarchived[$id]))
     {
         //print("Already archived $cachefname\n");
         continue;  // already archived this one.

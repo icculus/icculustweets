@@ -29,9 +29,9 @@ foreach ($argv as $arg)
         $reprocess_existing = true;
 }
 
-$connection = undef;
-$statuses = undef;
-$data = undef;
+$connection = NULL;
+$statuses = NULL;
+$data = NULL;
 
 if ($reprocess_existing)
 {
@@ -165,7 +165,7 @@ foreach ($data as $tweet)
     $in_reply_to = '';
     if ($tweet->in_reply_to_status_id_str)
     {
-        if (!$in_reply_to_name)
+        if (!isset($in_reply_to_name))
             $in_reply_to_name = $tweet->in_reply_to_screen_name;
         $in_reply_to = "in reply to <a href='https://twitter.com/{$tweet->in_reply_to_screen_name}/status/{$tweet->in_reply_to_status_id_str}'>$in_reply_to_name</a>";
     }
@@ -177,9 +177,8 @@ foreach ($data as $tweet)
     $tweet->epoch_created_at = $datetime->format('U');
     $tweet->simple_created_at = $created_at;
     $tweet->status_url = "https://twitter.com/{$tweet->user->screen_name}/status/{$tweet->id_str}";
-    if ($in_reply_to_name)
+    if (isset($in_reply_to_name))
         $tweet->in_reply_to_name_proper = $in_reply_to_name;
-
     if (!isset($tweet->origtext))
         $tweet->origtext = $tweet->text;
     $tweet->text = $text;

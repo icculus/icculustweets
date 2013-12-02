@@ -20,6 +20,14 @@ if ($cachefnames !== false)
         rsort($cachefnames, SORT_NUMERIC);
 }
 
+$doreplies = true;
+if (isset($_REQUEST['replies']))
+    $doreplies = (((int) $_REQUEST['replies']) != 0);
+
+$doretweets = true;
+if (isset($_REQUEST['retweets']))
+    $doretweets = (((int) $_REQUEST['retweets']) != 0);
+
 $count = 0;
 if ($cachefnames !== false)
 {
@@ -28,6 +36,11 @@ if ($cachefnames !== false)
         $obj = unserialize(file_get_contents("$cachedir/$fname"));
         if ($obj !== false)
         {
+            if (isset($obj->in_reply_to_screen_name) && (!$doreplies))
+                continue;
+            else if (isset($obj->retweeted_status) && (!$doretweets))
+                continue;
+
             $data[] = $obj;
             $count++;
             if (($maxtweets > 0) && ($count >= $maxtweets))

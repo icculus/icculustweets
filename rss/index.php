@@ -29,6 +29,15 @@ if ($cachefnames !== false)
         rsort($cachefnames, SORT_NUMERIC);
 }
 
+$doreplies = true;
+if (isset($_REQUEST['replies']))
+    $doreplies = (((int) $_REQUEST['replies']) != 0);
+
+$doretweets = true;
+if (isset($_REQUEST['retweets']))
+    $doretweets = (((int) $_REQUEST['retweets']) != 0);
+
+
 if ($cachefnames !== false)
 {
     if (($maxtweets <= 0) || ($maxtweets > count($cachefnames)))
@@ -39,11 +48,28 @@ if ($cachefnames !== false)
         $fname = $cachefnames[$i];
         $obj = unserialize(file_get_contents("$cachedir/$fname"));
         if ($obj !== false)
+        {
+            if (isset($obj->in_reply_to_screen_name) && (!$doreplies))
+                continue;
+            else if (isset($obj->retweeted_status) && (!$doretweets))
+                continue;
             $data[] = $obj;
+        }
     }
 }
 
 header('Content-Type: text/xml; charset=UTF-8');
+
+$details = '';
+if (!$doreplies) {
+    if ($details != '') $details .= ' /';
+    $details .= ' no replies';
+}
+if (!$doretweets) {
+    if ($details != '') $details .= ' /';
+    $details .= ' no retweets';
+}
+if ($details != '') $details = " ($details )";
 
 $uname = TWITTER_USERNAME;
 
@@ -51,12 +77,12 @@ print( <<<EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
-  <title>Twitter / $uname</title>
+  <title>Twitter / $uname$details</title>
   <link>https://twitter.com/$uname</link>
-  <tagline>Tweets from @$uname</tagline>
+  <tagline>Tweets from @$uname$details</tagline>
   <image>
     <url>https://twitter.com/images/resources/twitter-bird-light-bgs.png</url>
-    <title>Twitter / $uname</title>
+    <title>Twitter / $uname$details</title>
     <link>https://twitter.com/$uname</link>
   </image>
 

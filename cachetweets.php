@@ -3,6 +3,27 @@
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
+function embed_img_url($mediaurl)
+{
+    $imgdata = false;
+    $imgtype = (strlen($mediaurl) > 4) ? strtolower(substr($mediaurl, -4)) : '';
+    if (($imgtype == '.jpg') || ($imgtype == '.png') || ($imgtype == '.gif'))
+    {
+        $imgdata = file_get_contents($mediaurl);
+        $imgtype = substr($imgtype, 1);
+    }
+
+    if ($imgdata !== false)
+    {
+        $mediaurl = "data:image/$imgtype;base64," . base64_encode($imgdata);
+        unset($imgdata);
+    }
+
+    return $mediaurl;
+}
+
+
+
 $cachedir = './cache';
 if (!file_exists($cachedir))
     mkdir($cachedir);
@@ -149,6 +170,7 @@ foreach ($data as $tweet)
                 $mediaurl = isset($item->media_url_https) ? $item->media_url_https : $item->media_url;
                 if ($item->type == "photo")
                 {
+                    $mediaurl = embed_img_url($mediaurl);
                     $mediahtml = $mediahtml . "<img src='$mediaurl' style='max-width:375px;'/><br/>";
                     $text = str_replace($item->url, $item->display_url, $text, $temp = 1);
                     $html = str_replace($item->url, "<a href='{$item->expanded_url}'>{$item->display_url}</a>", $html, $temp = 1);
@@ -183,10 +205,12 @@ foreach ($data as $tweet)
         $tweet->origtext = $tweet->text;
     $tweet->text = $text;
 
+    $profile_img_url = embed_img_url($tweet->user->profile_image_url);
+
     $tweet->html = <<<EOS
 <div style="padding-bottom:25px;padding-left:50px;padding-right:50px;padding-top:5px;">
   <table><tr>
-    <td><img style="width:48px; height:48px;" src='{$tweet->user->profile_image_url}'/></td>
+    <td><img style="width:48px; height:48px;" src='$profile_img_url'/></td>
     <td>
       <span style="font-family:'Helvetica Neue', Arial, sans-serif;font-size:18px;font-weight:bold;color:#333;text-decoration:none;display:block;">
         {$tweet->user->name}

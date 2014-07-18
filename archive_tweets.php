@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once('twitteroauth/twitteroauth.php');
-require_once('config.php');
+//require_once('twitteroauth/twitteroauth.php');
+//require_once('config.php');
 
 header('Content-Type: text/plain; charset="utf-8"');
 

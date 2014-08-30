@@ -6,7 +6,7 @@ require_once('config.php');
 function embed_img_url($mediaurl)
 {
     $imgdata = false;
-    $imgtype = (strlen($mediaurl) > 4) ? strtolower(substr($mediaurl, -4)) : '';
+    $imgtype = strtolower(strrchr($mediaurl, '.'));
 
     if ($imgtype == '.jpeg')
         $imgtype = '.jpg';

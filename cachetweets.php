@@ -7,6 +7,10 @@ function embed_img_url($mediaurl)
 {
     $imgdata = false;
     $imgtype = (strlen($mediaurl) > 4) ? strtolower(substr($mediaurl, -4)) : '';
+
+    if ($imgtype == '.jpeg')
+        $imgtype = '.jpg';
+
     if (($imgtype == '.jpg') || ($imgtype == '.png') || ($imgtype == '.gif'))
     {
         $imgdata = file_get_contents($mediaurl);

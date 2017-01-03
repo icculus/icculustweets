@@ -101,8 +101,14 @@ else
     /* If method is set change API call made. Test is called by default. */
     $content = $connection->get('account/verify_credentials');
 
-    $data = $connection->get('statuses/user_timeline', array('screen_name' => TWITTER_USERNAME, 'count' => '2000', 'include_entities' => 'true', 'include_rts' => 'true', 'since_id' => $maxtweet));
-    if (isset($data->errors))
+    $data = $connection->get('statuses/user_timeline', array('screen_name' => TWITTER_USERNAME, 'count' => '2000', 'include_entities' => 'true', 'include_rts' => 'true', 'since_id' => $maxtweet, 'tweet_mode' => 'extended'));
+    if ($data === false)
+    {
+        print("get timeline failed:\n");
+            print("  - HTTP connection totally failed. Network burp?\n");
+        exit(1);
+    }
+    else if (isset($data->errors))
     {
         print("get timeline failed:\n");
         foreach ($data->errors as $err)
@@ -117,7 +123,7 @@ foreach ($data as $tweet)
     if ($getfromargv)
     {
         $id = $tweet;
-        $tweet = $connection->get('statuses/show', array('id' => $id, 'include_entities' => 'true'));
+        $tweet = $connection->get('statuses/show', array('id' => $id, 'include_entities' => 'true', 'tweet_mode' => 'extended'));
         if (isset($tweet->errors))
         {
             print("get tweet $id failed:\n");
@@ -138,10 +144,15 @@ foreach ($data as $tweet)
         continue;
     }
 
+    if (isset($tweet->full_text))
+    {
+        $tweet->text = $tweet->full_text;
+        unset($tweet->full_text);
+    }
+
     $origtweet = $tweet;
     if (isset($tweet->retweeted_status))
         $tweet = $tweet->retweeted_status;
-
 
     unset($in_reply_to_name);
     $mediahtml = '';

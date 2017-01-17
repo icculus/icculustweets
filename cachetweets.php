@@ -152,7 +152,14 @@ foreach ($data as $tweet)
 
     $origtweet = $tweet;
     if (isset($tweet->retweeted_status))
+    {
         $tweet = $tweet->retweeted_status;
+        if (isset($tweet->full_text))
+        {
+            $tweet->text = $tweet->full_text;
+            unset($tweet->full_text);
+        }
+    }
 
     unset($in_reply_to_name);
     $mediahtml = '';

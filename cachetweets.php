@@ -173,15 +173,15 @@ foreach ($data as $tweet)
             {
                 if (strcasecmp($tweet->in_reply_to_screen_name, $item->screen_name) == 0)
                     $in_reply_to_name = $item->name;
-                $html = str_ireplace("@{$item->screen_name}", "<a href='https://twitter.com/{$item->screen_name}/'>@{$item->screen_name}</a>", $html, $temp = 1);
+                $html = str_ireplace("@{$item->screen_name}", "<a href='https://twitter.com/{$item->screen_name}/'>@{$item->screen_name}</a>", $html);
             }
         }
         if (isset($tweet->entities->urls))
         {
             foreach($tweet->entities->urls as $item)
             {
-                $text = str_replace($item->url, $item->display_url, $text, $temp = 1);
-                $html = str_replace($item->url, "<a href='{$item->expanded_url}'>{$item->display_url}</a>", $html, $temp = 1);
+                $text = str_replace($item->url, $item->display_url, $text);
+                $html = str_replace($item->url, "<a href='{$item->expanded_url}'>{$item->display_url}</a>", $html);
                 // !!! FIXME: embed youtube
             }
         }
@@ -194,15 +194,15 @@ foreach ($data as $tweet)
                 {
                     $mediaurl = embed_img_url($mediaurl);
                     $mediahtml = $mediahtml . "<img src='$mediaurl' style='max-width:375px;'/><br/>";
-                    $text = str_replace($item->url, $item->display_url, $text, $temp = 1);
-                    $html = str_replace($item->url, "<a href='{$item->expanded_url}'>{$item->display_url}</a>", $html, $temp = 1);
+                    $text = str_replace($item->url, $item->display_url, $text);
+                    $html = str_replace($item->url, "<a href='{$item->expanded_url}'>{$item->display_url}</a>", $html);
                 }
             }
         }
         if (isset($tweet->entities->hashtags))
         {
             foreach($tweet->entities->hashtags as $item)
-                $html = str_replace("#{$item->text}", "<a href='https://twitter.com/search?q=%23{$item->text}'>#{$item->text}</a>", $html, $temp = 1);
+                $html = str_replace("#{$item->text}", "<a href='https://twitter.com/search?q=%23{$item->text}'>#{$item->text}</a>", $html);
         }
     }
 
